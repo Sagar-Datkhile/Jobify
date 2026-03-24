@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2563EB;
-  --color-secondary: #3B82F6;
-  --color-light-blue: #EAF2FF;
-  --color-background: #FFFFFF;
-  --color-text-primary: #1E293B;
-  --color-text-secondary: #64748B;
+  --color-primary: #2563eb;
+  --color-secondary: #3b82f6;
+  --color-light-blue: #eaf2ff;
+  --color-background: #ffffff;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #64748b;
   --font-sans: "Inter", "Outfit", "Segoe UI", sans-serif;
 }
 
@@ -29,4 +29,19 @@
   .soft-shadow {
     box-shadow: 0 10px 40px -10px rgba(37, 99, 235, 0.1);
   }
+}
+
+/* Add this to your global CSS file */
+.hide-password-toggle::-ms-reveal,
+.hide-password-toggle::-ms-clear {
+  display: none;
+}
+
+/* For some versions of Webkit browsers */
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
