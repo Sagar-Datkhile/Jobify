@@ -50,7 +50,7 @@ const Navbar = (props) => {
       <div
         className={`max-w-7xl mx-auto transition-all duration-300 rounded-full ${
           isScrolled
-            ? "bg-white/70 backdrop-blur-lg shadow-lg py-3 px-6"
+            ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-lg dark:shadow-slate-900/20 py-3 px-6"
             : "bg-transparent py-3 px-4"
         }`}
       >
@@ -60,7 +60,7 @@ const Navbar = (props) => {
             <div className="bg-primary p-2 rounded-lg group-hover:bg-secondary transition-colors">
               <Briefcase className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-text-primary tracking-tight">
+            <span className="text-xl font-bold text-text-primary dark:text-white tracking-tight">
               Jobify
             </span>
           </Link>
@@ -71,7 +71,7 @@ const Navbar = (props) => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="text-text-secondary hover:text-primary font-medium transition-colors"
+                className="text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white font-medium transition-colors"
               >
                 {item.name}
               </Link>
@@ -109,7 +109,7 @@ const Navbar = (props) => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-text-primary hover:text-primary focus:outline-none"
+              className="text-text-primary dark:text-slate-200 hover:text-primary focus:outline-none transition-colors"
             >
               {mobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -123,18 +123,18 @@ const Navbar = (props) => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-4 right-4 mt-2 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 px-4 flex flex-col space-y-4">
+        <div className="md:hidden absolute top-full left-4 right-4 mt-2 bg-white dark:bg-slate-900 rounded-2xl shadow-xl dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-800 py-4 px-4 flex flex-col space-y-4">
           {menuItems.map((item) => (
             <Link
               key={item.name}
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 text-base font-medium text-text-secondary hover:text-primary hover:bg-light-blue rounded-md"
+              className="block px-3 py-2 text-base font-medium text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white hover:bg-light-blue/50 dark:hover:bg-slate-800 rounded-md transition-colors"
             >
               {item.name}
             </Link>
           ))}
-          <div className="pt-4 flex flex-col space-y-3 border-t border-gray-100">
+          <div className="pt-4 flex flex-col space-y-3 border-t border-gray-100 dark:border-slate-800">
             <Link to="/login">
               <button className="w-full px-5 py-2.5 text-primary font-semibold border-2 border-primary rounded-lg">
                 Login

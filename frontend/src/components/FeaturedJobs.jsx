@@ -83,7 +83,7 @@ const FeaturedJobs = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {jobs.map((job) => (
-                        <div key={job.id} className="bg-white rounded-3xl p-6 border border-gray-100 soft-shadow card-hover relative group">
+                        <div key={job.id} className="bg-white rounded-3xl p-6 border border-gray-100 soft-shadow card-hover relative group flex flex-col h-full">
                             {/* Save Button */}
                             <button className="absolute top-6 right-6 text-gray-300 hover:text-primary transition-colors">
                                 <Bookmark className="h-6 w-6" />
@@ -114,7 +114,7 @@ const FeaturedJobs = () => {
                             </div>
 
                             {/* Actions */}
-                            <div className="flex items-center gap-3 mt-8 pt-6 border-t border-gray-100">
+                            <div className="flex items-center gap-3 mt-auto pt-6 border-t border-gray-100">
                                 <button className="flex-1 bg-primary text-white py-2.5 rounded-xl font-semibold hover:bg-secondary transition-colors text-sm">
                                     Apply Now
                                 </button>
