@@ -1,26 +1,77 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Briefcase } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 
 const Navbar = (props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // If not on home page, navigate to home with hash
+      navigate(`/#${id}`);
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to hash on load if present
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [location]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+
+    // Intersection Observer for active section highlighting
+    const observerOptions = {
+      root: null,
+      rootMargin: "-10% 0px -80% 0px", // Adjust to trigger when section is near top
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const sections = ["home", "companies", "jobs", "about", "contact"];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const menuItems = [
-    { name: "Home", path: "/" },
-    { name: "Jobs", path: "/jobs" },
-    { name: "Companies", path: "/companies" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "/#home" },
+    { name: "Jobs", path: "/#jobs" },
+    { name: "Companies", path: "/#companies" },
+    { name: "About", path: "/#about" },
+    { name: "Contact", path: "/#contact" },
   ];
   const handleLogout = async () => {
     try {
@@ -77,11 +128,17 @@ const Navbar = (props) => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`font-medium transition-colors ${
+                onClick={(e) => {
+                  if (location.pathname === "/") {
+                    e.preventDefault();
+                    scrollToSection(item.path.split("#")[1]);
+                  }
+                }}
+                className={`font-medium transition-colors relative py-1 ${
                   isScrolled
                     ? "text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white"
                     : "text-black hover:text-primary"
-                }`}
+                } ${activeSection === item.path.split("#")[1] ? "text-primary dark:text-primary" : ""}`}
               >
                 {item.name}
               </Link>
@@ -142,12 +199,18 @@ const Navbar = (props) => {
             <Link
               key={item.name}
               to={item.path}
-              onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 text-base font-medium transition-colors rounded-md ${
+              onClick={(e) => {
+                setMobileMenuOpen(false);
+                if (location.pathname === "/") {
+                  e.preventDefault();
+                  scrollToSection(item.path.split("#")[1]);
+                }
+              }}
+              className={`block px-3 py-2 text-base font-medium transition-colors rounded-md ${
                   isScrolled
                     ? "text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white hover:bg-light-blue/50 dark:hover:bg-slate-800"
                     : "text-black hover:text-primary hover:bg-light-blue/30"
-                }`}
+                } ${activeSection === item.path.split("#")[1] ? "text-primary bg-light-blue/20" : ""}`}
             >
               {item.name}
             </Link>

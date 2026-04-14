@@ -10,13 +10,23 @@ import CTA from '../components/CTA';
 const Home = () => {
     return (
         <div className="bg-background pt-16">
-            <Hero />
-            <Companies />
-            <FeaturedJobs />
-            <HowItWorks />
+            <div id="home" className="scroll-mt-24">
+                <Hero />
+            </div>
+            <div id="companies" className="scroll-mt-24">
+                <Companies />
+            </div>
+            <div id="jobs" className="scroll-mt-24">
+                <FeaturedJobs />
+            </div>
+            <div id="about" className="scroll-mt-24">
+                <HowItWorks />
+            </div>
             <Features />
             <Testimonials />
-            <CTA />
+            <div id="contact" className="scroll-mt-24">
+                <CTA />
+            </div>
         </div>
     );
 };
