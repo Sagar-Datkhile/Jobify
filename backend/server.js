@@ -8,9 +8,10 @@ import cloudinaryLib from "cloudinary";
 import multer from "multer";
 import cors from "cors";
 
-const app = express();
-const saltRounds = parseInt(process.env.SALT_ROUNDS);
 dotenv.config();
+
+const app = express();
+const saltRounds = parseInt(process.env.SALT_ROUNDS) || 10;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

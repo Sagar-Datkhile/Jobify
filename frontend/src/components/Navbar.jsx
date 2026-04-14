@@ -60,7 +60,13 @@ const Navbar = (props) => {
             <div className="bg-primary p-2 rounded-lg group-hover:bg-secondary transition-colors">
               <Briefcase className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-text-primary dark:text-white tracking-tight">
+            <span
+              className={`text-xl font-bold tracking-tight transition-colors ${
+                isScrolled
+                  ? "text-text-primary dark:text-white"
+                  : "text-black"
+              }`}
+            >
               Jobify
             </span>
           </Link>
@@ -71,7 +77,11 @@ const Navbar = (props) => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white font-medium transition-colors"
+                className={`font-medium transition-colors ${
+                  isScrolled
+                    ? "text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white"
+                    : "text-black hover:text-primary"
+                }`}
               >
                 {item.name}
               </Link>
@@ -109,7 +119,11 @@ const Navbar = (props) => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-text-primary dark:text-slate-200 hover:text-primary focus:outline-none transition-colors"
+              className={`transition-colors focus:outline-none ${
+                  isScrolled
+                  ? "text-text-primary dark:text-slate-200"
+                  : "text-black"
+              } hover:text-primary`}
             >
               {mobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -129,7 +143,11 @@ const Navbar = (props) => {
               key={item.name}
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 text-base font-medium text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white hover:bg-light-blue/50 dark:hover:bg-slate-800 rounded-md transition-colors"
+                className={`block px-3 py-2 text-base font-medium transition-colors rounded-md ${
+                  isScrolled
+                    ? "text-text-secondary dark:text-slate-300 hover:text-primary dark:hover:text-white hover:bg-light-blue/50 dark:hover:bg-slate-800"
+                    : "text-black hover:text-primary hover:bg-light-blue/30"
+                }`}
             >
               {item.name}
             </Link>
